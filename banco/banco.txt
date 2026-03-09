@@ -1,0 +1,133 @@
+create schema solar;
+use solar;
+
+CREATE TABLE usuarios (
+    idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+    nomeUsuario VARCHAR(150) NOT NULL,
+    emailUsuario VARCHAR(150) UNIQUE NOT NULL,
+    senhaUsuario VARCHAR(255) NOT NULL,
+    nivelUsuario ENUM('admin','tecnico','atendente') DEFAULT 'tecnico',
+    usuarioAtivo ENUM('S','N') DEFAULT 'S',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE clientes (
+    idCliente INT AUTO_INCREMENT PRIMARY KEY,
+    nomeCliente VARCHAR(150) NOT NULL,
+    telefoneCliente VARCHAR(20),
+    pode_ligar BOOLEAN DEFAULT TRUE,
+    enderecoCliente VARCHAR(255),
+    cidadeCliente VARCHAR(100),
+    estadoCliente VARCHAR(2),
+    cepCliente VARCHAR(10),
+
+    createdBy INT,
+    updatedBy INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_cliente_createdby
+        FOREIGN KEY (createdBy)
+        REFERENCES usuarios(idUsuario),
+
+    CONSTRAINT fk_cliente_updatedby
+        FOREIGN KEY (updatedBy)
+        REFERENCES usuarios(idUsuario)
+);
+
+CREATE TABLE contratos (
+    idContrato INT AUTO_INCREMENT PRIMARY KEY,
+    idCliente INT NOT NULL,
+    numeroContrato VARCHAR(50),
+    dataContrato DATE,
+    statusContrato VARCHAR(50),
+    obsContrato TEXT,
+
+    createdBy INT,
+    updatedBy INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_contrato_cliente
+        FOREIGN KEY (idCliente)
+        REFERENCES clientes(idCliente)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_contrato_createdby
+        FOREIGN KEY (createdBy)
+        REFERENCES usuarios(idUsuario),
+
+    CONSTRAINT fk_contrato_updatedby
+        FOREIGN KEY (updatedBy)
+        REFERENCES usuarios(idUsuario)
+);
+
+CREATE TABLE kits (
+    idKit INT AUTO_INCREMENT PRIMARY KEY,
+    nomeKit VARCHAR(245) NOT NULL,
+    descKit TEXT,
+    kitAtivo ENUM('S','N') DEFAULT 'S'
+);
+
+CREATE TABLE projetoSolar (
+    idProjeto INT AUTO_INCREMENT PRIMARY KEY,
+    idContrato INT NOT NULL,
+    kwp DECIMAL(6,2),
+    idKit INT,
+    dataInstalacao DATE,
+
+    createdBy INT,
+    updatedBy INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_projeto_contrato
+        FOREIGN KEY (idContrato)
+        REFERENCES contratos(idContrato)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_projeto_kit
+        FOREIGN KEY (idKit)
+        REFERENCES kits(idKit),
+
+    CONSTRAINT fk_projeto_createdby
+        FOREIGN KEY (createdBy)
+        REFERENCES usuarios(idUsuario),
+
+    CONSTRAINT fk_projeto_updatedby
+        FOREIGN KEY (updatedBy)
+        REFERENCES usuarios(idUsuario)
+);
+
+CREATE TABLE manutencoes (
+    idManutencao INT AUTO_INCREMENT PRIMARY KEY,
+    idContrato INT NOT NULL,
+    anoManutencao YEAR,
+    ligacaoRealizada BOOLEAN DEFAULT FALSE,
+    servicoRealizado BOOLEAN DEFAULT FALSE,
+    observacoes TEXT,
+    finalizado BOOLEAN DEFAULT FALSE,
+    dataServico DATE,
+
+    createdBy INT,
+    updatedBy INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_manutencao_contrato
+        FOREIGN KEY (idContrato)
+        REFERENCES contratos(idContrato)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_manutencao_createdby
+        FOREIGN KEY (createdBy)
+        REFERENCES usuarios(idUsuario),
+
+    CONSTRAINT fk_manutencao_updatedby
+        FOREIGN KEY (updatedBy)
+        REFERENCES usuarios(idUsuario)
+);
