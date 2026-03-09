@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "cookie": "^1.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "jimp": "^0.16.13",
+    "jsonwebtoken": "^9.0.2",
+    "localstorage": "^1.0.1",
+    "moment-timezone": "^0.6.0",
+    "multer": "^2.0.0",
+    "mysql2": "^3.12.0",
+    "node": "^23.9.0",
+    "pdfkit": "^0.17.2",
+    "qrcode": "^1.5.4",
+    "resend": "^6.4.0",
+    "router": "^2.2.0",
+    "swagger": "^0.7.5",
+    "xlsx": "^0.18.5",
+    "xml2js": "^0.6.2"
+  },
+  "scripts": {
+    "start": "node swagger",
+    "test": "jest --passWithNoTests"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
