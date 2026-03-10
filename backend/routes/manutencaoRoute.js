@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ManutencoesController = require('../controllers/ManutencoesController');
-const ctrl = new ManutencoesController();
+const ManutencaoController = require('../controllers/ManutencaoController');
+const ctrl = new ManutencaoController();
 
 router.get('/listar', (req,res)=>{
     //#swagger.tags = ['Manutenções']

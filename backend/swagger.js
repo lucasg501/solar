@@ -23,7 +23,7 @@ const doc = {
         schemas: {
             clientes: new ClientesModel(0, 'Osvaldo', '1899999999', '0', 'Rua jose do osvaldo', 'Presidente Prudente', 'SP', '19064700', '1', '1').toJSON(),
             contratos: new ContratosModel(1, 2, 'Contrato 4', '2023-01-01', 'Ativo', "nao tem obs", 1, 1).toJSON(),
-            kits: new KitsModel().toJSON(1, 'Kit Solar 1', 'Descrição do kit solar 1', 'S').toJSON(),
+            kits: new KitsModel(1, 'Kit Solar 1', 'Descrição do kit solar 1', 'S').toJSON(),
             manutencao: new ManutencaoModel(1, 1, '2025', 0, 0, "nao tem obs", 0, '2026-01-03', 1, 1).toJSON(),
             projetoSolar: new ProjetoSolarModel(1, 1, '350', 1, '2026-04-04', 1, 1).toJSON(),
             usuarios: new UsuariosModel(1, 'Naomi', 'naomi@example.com', 'senha123', 1, 'S').toJSON()

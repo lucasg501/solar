@@ -1,13 +1,11 @@
 var mysql = require('mysql2');
-const fs = require('fs');
-const path = require('path');
-
 
 class Database {
 
     #conexao;
 
-    get conexao() { return this.#conexao; } set conexao(conexao) { this.#conexao = conexao; }
+    get conexao() { return this.#conexao; } 
+    set conexao(conexao) { this.#conexao = conexao; }
 
     constructor() {
 
@@ -16,11 +14,9 @@ class Database {
             port: 3306,
             database: 'solar',
             user: 'root',
-            password: '',
-            ssl: {
-                ca: fs.readFileSync(path.join(__dirname, '..', 'certs', 'ca.pem'))
-            }
+            password: ''
         });
+
     }
 
     IniciarTransacao() {

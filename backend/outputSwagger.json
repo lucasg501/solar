@@ -1,0 +1,924 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Gerenciamento de Projetos Solares",
+    "description": "API para gerenciamento de clientes, contratos, kits, manutenções, projetos solares e usuários.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/"
+    }
+  ],
+  "paths": {
+    "/clientes/listar": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Endpoint para listar os clientes.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/clientes/obter/{idCliente}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Endpoint para obter um cliente específico.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/clientes/criar": {
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Adiciona um cliente",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/clientes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/alterar": {
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Altera um cliente",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/clientes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/excluir/{idCliente}": {
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Exclui um cliente",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contratos/listar": {
+      "get": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Endpoint para listar os contratos.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contratos/obter/{idContrato}": {
+      "get": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Endpoint para obter um contrato específico.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idContrato",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contratos/criar": {
+      "post": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Adiciona um contrato",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/contratos"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contratos/alterar": {
+      "put": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Altera um contrato",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/contratos"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contratos/excluir/{idContrato}": {
+      "delete": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Exclui um contrato",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idContrato",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/kits/listar": {
+      "get": {
+        "tags": [
+          "Kits"
+        ],
+        "summary": "Endpoint para listar os kits.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/kits/obter/{idKit}": {
+      "get": {
+        "tags": [
+          "Kits"
+        ],
+        "summary": "Endpoint para obter um kit específico.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idKit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/kits/criar": {
+      "post": {
+        "tags": [
+          "Kits"
+        ],
+        "summary": "Adiciona um kit",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/kits"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kits/alterar": {
+      "put": {
+        "tags": [
+          "Kits"
+        ],
+        "summary": "Altera um kit",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/kits"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kits/excluir/{idKit}": {
+      "delete": {
+        "tags": [
+          "Kits"
+        ],
+        "summary": "Exclui um kit",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idKit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/manutencao/listar": {
+      "get": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Endpoint para listar as manutenções.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/manutencao/obter/{idManutencao}": {
+      "get": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Endpoint para obter uma manutenção específica.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idManutencao",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/manutencao/criar": {
+      "post": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Adiciona uma manutenção",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/manutencoes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/manutencao/alterar": {
+      "put": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Altera uma manutenção",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/manutencoes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/manutencao/excluir/{idManutencao}": {
+      "delete": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Exclui uma manutenção",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idManutencao",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/projetoSolar/listar": {
+      "get": {
+        "tags": [
+          "ProjetoSolar"
+        ],
+        "summary": "Endpoint para listar os projetos solares.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/projetoSolar/obter/{idProjeto}": {
+      "get": {
+        "tags": [
+          "ProjetoSolar"
+        ],
+        "summary": "Endpoint para obter um projeto específico.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProjeto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/projetoSolar/criar": {
+      "post": {
+        "tags": [
+          "ProjetoSolar"
+        ],
+        "summary": "Adiciona um projeto solar",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/projetoSolar"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projetoSolar/alterar": {
+      "put": {
+        "tags": [
+          "ProjetoSolar"
+        ],
+        "summary": "Altera um projeto solar",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/projetoSolar"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projetoSolar/excluir/{idProjeto}": {
+      "delete": {
+        "tags": [
+          "ProjetoSolar"
+        ],
+        "summary": "Exclui um projeto solar",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProjeto",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/usuarios/listar": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Endpoint para listar os usuários.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/usuarios/obter/{idUsuario}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Endpoint para obter um usuário específico.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/usuarios/criar": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Adiciona um usuário",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/usuarios"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/alterar": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Altera um usuário",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/usuarios"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/excluir/{idUsuario}": {
+      "delete": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Exclui um usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "clientes": {
+        "type": "object",
+        "properties": {
+          "idCliente": {
+            "type": "number",
+            "example": 0
+          },
+          "nomeCliente": {
+            "type": "string",
+            "example": "Osvaldo"
+          },
+          "telefoneCliente": {
+            "type": "string",
+            "example": "1899999999"
+          },
+          "pode_ligar": {
+            "type": "string",
+            "example": "0"
+          },
+          "enderecoCliente": {
+            "type": "string",
+            "example": "Rua jose do osvaldo"
+          },
+          "cidadeCliente": {
+            "type": "string",
+            "example": "Presidente Prudente"
+          },
+          "estadoCliente": {
+            "type": "string",
+            "example": "SP"
+          },
+          "cepCliente": {
+            "type": "string",
+            "example": "19064700"
+          },
+          "createdBy": {
+            "type": "string",
+            "example": "1"
+          },
+          "updatedBy": {
+            "type": "string",
+            "example": "1"
+          },
+          "created_at": {
+            "type": "undefined"
+          },
+          "updated_at": {
+            "type": "undefined"
+          }
+        }
+      },
+      "contratos": {
+        "type": "object",
+        "properties": {
+          "idContrato": {
+            "type": "number",
+            "example": 1
+          },
+          "idCliente": {
+            "type": "number",
+            "example": 2
+          },
+          "numeroContrato": {
+            "type": "string",
+            "example": "Contrato 4"
+          },
+          "dataContrato": {
+            "type": "string",
+            "example": "2023-01-01"
+          },
+          "statusContrato": {
+            "type": "string",
+            "example": "Ativo"
+          },
+          "obsContrato": {
+            "type": "string",
+            "example": "nao tem obs"
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "updatedBy": {
+            "type": "number",
+            "example": 1
+          },
+          "createdAt": {
+            "type": "undefined"
+          },
+          "updatedAt": {
+            "type": "undefined"
+          }
+        }
+      },
+      "kits": {
+        "type": "object",
+        "properties": {
+          "idKit": {
+            "type": "number",
+            "example": 1
+          },
+          "nomeKit": {
+            "type": "string",
+            "example": "Kit Solar 1"
+          },
+          "descKit": {
+            "type": "string",
+            "example": "Descrição do kit solar 1"
+          },
+          "kitAtivo": {
+            "type": "string",
+            "example": "S"
+          }
+        }
+      },
+      "manutencao": {
+        "type": "object",
+        "properties": {
+          "idManutencao": {
+            "type": "number",
+            "example": 1
+          },
+          "idContrato": {
+            "type": "number",
+            "example": 1
+          },
+          "anoManutencao": {
+            "type": "string",
+            "example": "2025"
+          },
+          "ligacaoRealizada": {
+            "type": "number",
+            "example": 0
+          },
+          "servicoRealizado": {
+            "type": "number",
+            "example": 0
+          },
+          "observacoes": {
+            "type": "string",
+            "example": "nao tem obs"
+          },
+          "finalizado": {
+            "type": "number",
+            "example": 0
+          },
+          "dataServico": {
+            "type": "string",
+            "example": "2026-01-03"
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "updatedBy": {
+            "type": "number",
+            "example": 1
+          },
+          "created_at": {
+            "type": "undefined"
+          },
+          "updated_at": {
+            "type": "undefined"
+          }
+        }
+      },
+      "projetoSolar": {
+        "type": "object",
+        "properties": {
+          "idProjeto": {
+            "type": "number",
+            "example": 1
+          },
+          "idContrato": {
+            "type": "number",
+            "example": 1
+          },
+          "kwp": {
+            "type": "string",
+            "example": "350"
+          },
+          "idKit": {
+            "type": "number",
+            "example": 1
+          },
+          "dataInstalacao": {
+            "type": "string",
+            "example": "2026-04-04"
+          },
+          "createdAt": {
+            "type": "number",
+            "example": 1
+          },
+          "updatedAt": {
+            "type": "number",
+            "example": 1
+          },
+          "createdBy": {
+            "type": "undefined"
+          },
+          "updatedBy": {
+            "type": "undefined"
+          }
+        }
+      },
+      "usuarios": {
+        "type": "object",
+        "properties": {
+          "idUsuario": {
+            "type": "number",
+            "example": 1
+          },
+          "nomeUsuario": {
+            "type": "string",
+            "example": "Naomi"
+          },
+          "emailUsuario": {
+            "type": "string",
+            "example": "naomi@example.com"
+          },
+          "senhaUsuario": {
+            "type": "string",
+            "example": "senha123"
+          },
+          "nivelUsuario": {
+            "type": "number",
+            "example": 1
+          },
+          "usuarioAtivo": {
+            "type": "string",
+            "example": "S"
+          },
+          "created_at": {
+            "type": "undefined"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "chave",
+        "description": "Chave de autenticação para acessar a API"
+      }
+    }
+  }
+}
