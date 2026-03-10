@@ -19,7 +19,7 @@ class UsuarioModel {
     get usuarioAtivo() { return this.#usuarioAtivo } set usuarioAtivo(usuarioAtivo) { this.#usuarioAtivo = usuarioAtivo }
     get created_at() { return this.#created_at } set created_at(created_at) { this.#created_at = created_at }
 
-    contructor(idUsuario, nomeUsuario, emailUsuario, senhaUsuario, nivelUsuario, usuarioAtivo, created_at) {
+    constructor(idUsuario, nomeUsuario, emailUsuario, senhaUsuario, nivelUsuario, usuarioAtivo, created_at) {
         this.#idUsuario = idUsuario;
         this.#nomeUsuario = nomeUsuario;
         this.#emailUsuario = emailUsuario;
