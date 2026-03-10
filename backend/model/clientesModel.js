@@ -1,7 +1,7 @@
 const Database = require('../utils/database');
 const banco = new Database();
 
-class UsuarioModel {
+class ClientesModel {
     #idCliente;
     #nomeCliente;
     #telefoneCliente;
@@ -109,4 +109,4 @@ class UsuarioModel {
 
 }
 
-module.exports = UsuarioModel;
+module.exports = ClientesModel;
