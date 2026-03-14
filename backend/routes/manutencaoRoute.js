@@ -23,7 +23,7 @@ router.post('/criar', (req,res)=>{
             required: true,
             content: {
                 "application/json": {
-                    schema: { "$ref": "#/definitions/manutencoes" }
+                    schema: { "$ref": "#/definitions/manutencao" }
                 }
             }
         }
@@ -40,7 +40,7 @@ router.put('/alterar', (req,res)=>{
             required: true,
             content: {
                 "application/json": {
-                    schema: { "$ref": "#/definitions/manutencoes" }
+                    schema: { "$ref": "#/definitions/manutencao" }
                 }
             }
         }

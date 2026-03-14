@@ -18,16 +18,12 @@ class ContaratosController {
 
     async obter(req, res) {
         if(req.params.idContrato != 0){
-            try {
-                let contratos = new ContratosModel();
-                let contrato = await contratos.obter(req.params.idContrato);
-                if(contrato) {
-                    res.status(200).json(contrato.toJSON());
-                } else {
-                    res.status(404).json({message: 'Contrato não encontrado'});
-                }
-            } catch (error) {
-                res.status(500).json({message: 'Erro interno do servidor'});
+            let contratos = new ContratosModel();
+            contratos = await contratos.obter(req.params.idContrato);
+            if(contratos != null){
+                res.status(200).json(contratos.toJSON());
+            } else {
+                res.status(404).json({message: 'Contrato nao encontrado'});
             }
         } else {
             res.status(400).json({message: 'ID do contrato inválido'});
@@ -66,7 +62,7 @@ class ContaratosController {
             contratos.statusContrato = req.body.statusContrato;
             contratos.obsContrato = req.body.obsContrato;
             contratos.updatedBy = req.body.updatedBy;
-            let ok = await contratos.alterar();
+            let ok = await contratos.gravar();
             if(ok){
                 res.status(200).json({message: 'Contrato alterado com sucesso'});
             } else {

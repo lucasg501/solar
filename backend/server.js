@@ -7,6 +7,7 @@ const KitsRoute = require('./routes/KitsRoute');
 const ManutencaoRoute = require('./routes/ManutencaoRoute');
 const ProjetoSolarRoute = require('./routes/ProjetoSolarRoute');
 const UsuariosRoute = require('./routes/UsuariosRoute');
+const VendasRoute = require('./routes/VendasRoute');
 
 const cors = require('cors');
 const app = express();
@@ -21,6 +22,7 @@ app.use('/kits', KitsRoute);
 app.use('/manutencao', ManutencaoRoute);
 app.use('/projetoSolar', ProjetoSolarRoute);
 app.use('/usuarios', UsuariosRoute);
+app.use('/vendas', VendasRoute);
 
 app.listen(porta, () => {
     console.log(`Servidor rodando na porta ${porta}`);

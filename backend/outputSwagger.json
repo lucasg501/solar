@@ -396,7 +396,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/manutencoes"
+                "$ref": "#/components/schemas/manutencao"
               }
             }
           }
@@ -420,7 +420,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/manutencoes"
+                "$ref": "#/components/schemas/manutencao"
               }
             }
           }
@@ -657,6 +657,140 @@
         "parameters": [
           {
             "name": "idUsuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/vendas/listar": {
+      "get": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Endpoint para listar as vendas.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/vendas/obter/{idVenda}": {
+      "get": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Endpoint para obter uma venda específica.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idVenda",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/vendas/criar": {
+      "post": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Adiciona uma venda",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vendas"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vendas/alterar": {
+      "put": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Altera uma venda",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vendas"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vendas/attStatus": {
+      "post": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Atualiza o status de uma venda",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/vendas"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vendas/excluir/{idVenda}": {
+      "delete": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Exclui uma venda",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idVenda",
             "in": "path",
             "required": true,
             "schema": {
@@ -907,6 +1041,53 @@
             "example": "S"
           },
           "created_at": {
+            "type": "undefined"
+          }
+        }
+      },
+      "vendas": {
+        "type": "object",
+        "properties": {
+          "idVenda": {
+            "type": "number",
+            "example": 1
+          },
+          "idCliente": {
+            "type": "number",
+            "example": 1
+          },
+          "tipoVenda": {
+            "type": "string",
+            "example": "limpeza"
+          },
+          "descricaoVenda": {
+            "type": "string",
+            "example": "Limpeza para o dia 10"
+          },
+          "valorVenda": {
+            "type": "number",
+            "example": 500
+          },
+          "dataVenda": {
+            "type": "string",
+            "example": "2023/01/01"
+          },
+          "statusVenda": {
+            "type": "string",
+            "example": "aprovado"
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "updatedBy": {
+            "type": "number",
+            "example": 1
+          },
+          "created_at": {
+            "type": "undefined"
+          },
+          "updated_at": {
             "type": "undefined"
           }
         }

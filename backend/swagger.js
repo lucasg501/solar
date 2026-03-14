@@ -5,6 +5,7 @@ const KitsModel = require('./model/kitsModel.js');
 const ManutencaoModel = require('./model/manutencoesModel.js');
 const ProjetoSolarModel = require('./model/projetoSolarModel.js');
 const UsuariosModel = require('./model/usuarioModel.js');
+const VendasModel = require('./model/vendasModel.js');
 const doc = {
     info: {
         title: 'API de Gerenciamento de Projetos Solares',
@@ -26,7 +27,8 @@ const doc = {
             kits: new KitsModel(1, 'Kit Solar 1', 'Descrição do kit solar 1', 'S').toJSON(),
             manutencao: new ManutencaoModel(1, 1, '2025', 0, 0, "nao tem obs", 0, '2026-01-03', 1, 1).toJSON(),
             projetoSolar: new ProjetoSolarModel(1, 1, '350', 1, '2026-04-04', 1, 1).toJSON(),
-            usuarios: new UsuariosModel(1, 'Naomi', 'naomi@example.com', 'senha123', 1, 'S').toJSON()
+            usuarios: new UsuariosModel(1, 'Naomi', 'naomi@example.com', 'senha123', 1, 'S').toJSON(),
+            vendas: new VendasModel(1, 1, 'limpeza', 'Limpeza para o dia 10', 500.00,'2023/01/01', 'aprovado', 1, 1).toJSON()
         }
     }
 };

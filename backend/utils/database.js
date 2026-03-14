@@ -14,7 +14,7 @@ class Database {
             port: 3306,
             database: 'solar',
             user: 'root',
-            password: ''
+            password: 'root'
         });
 
     }

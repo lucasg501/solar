@@ -131,3 +131,36 @@ CREATE TABLE manutencoes (
         FOREIGN KEY (updatedBy)
         REFERENCES usuarios(idUsuario)
 );
+
+
+CREATE TABLE vendas (
+    idVenda INT AUTO_INCREMENT PRIMARY KEY,
+    idCliente INT NOT NULL,
+
+    tipoVenda ENUM('limpeza','manutencao','projeto','equipamento','outro') NOT NULL,
+
+    descricaoVenda VARCHAR(255),
+    valorVenda DECIMAL(10,2) NOT NULL,
+    dataVenda DATE,
+
+    statusVenda ENUM('orcamento','aprovado','executando','finalizado','cancelado') DEFAULT 'orcamento',
+
+    createdBy INT,
+    updatedBy INT,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_venda_cliente
+        FOREIGN KEY (idCliente)
+        REFERENCES clientes(idCliente)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_venda_createdby
+        FOREIGN KEY (createdBy)
+        REFERENCES usuarios(idUsuario),
+
+    CONSTRAINT fk_venda_updatedby
+        FOREIGN KEY (updatedBy)
+        REFERENCES usuarios(idUsuario)
+);

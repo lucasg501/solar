@@ -79,15 +79,16 @@ class KitsController {
             try {
                 let kits = new KitsModel();
                 let ok = await kits.excluir(req.params.idKit);
-
-                if (ok) {
+                if (ok.affectedRows > 0) {
                     res.status(200).json({ message: 'Kit excluído com sucesso' });
+                } else if (ok === false) {
+                    res.status(400).json({ message: 'Existe algo utilizando esse kit e por isso ele não pode ser excluído.' });
                 } else {
                     res.status(404).json({ message: 'Kit não encontrado' });
                 }
-
             } catch (error) {
-                res.status(500).json({ message: 'Erro interno do servidor' });
+                res.status(500).json({ message: 'Erro interno do servidor.' });
+                console.log(error);
             }
         } else {
             res.status(400).json({ message: 'ID do kit inválido' });

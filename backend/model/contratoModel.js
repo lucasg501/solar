@@ -57,19 +57,19 @@ class ContratoModel {
         let rows = await banco.ExecutaComando(sql);
         let lista = [];
         for (let i = 0; i < rows.length; i++) {
-            let contrato = new ContratoModel(rows[i].idContrato, rows[i].idCliente, rows[i].numeroContrato, rows[i].dataContrato, rows[i].statusContrato, rows[i].obsContrato, rows[i].createdBy, rows[i].updatedBy, rows[i].createdAt, rows[i].updatedAt);
+            let contrato = new ContratoModel(rows[i]['idContrato'], rows[i]['idCliente'], rows[i]['numeroContrato'], rows[i]['dataContrato'], rows[i]['statusContrato'], rows[i]['obsContrato'], rows[i]['createdBy'], rows[i]['updatedBy'], rows[i]['created_at'], rows[i]['updated_at']);
             lista.push(contrato);
         }
         return lista;
     }
 
     async obter(idContrato) {
-        if (idContrato == 0) {
+        if (idContrato != 0) {
             let sql = "select * from contratos where idContrato = ?";
             let valores = [idContrato];
             let rows = await banco.ExecutaComando(sql, valores);
             if (rows.length > 0) {
-                let contrato = new ContratoModel(rows[0].idContrato, rows[0].idCliente, rows[0].numeroContrato, rows[0].dataContrato, rows[0].statusContrato, rows[0].obsContrato, rows[0].createdBy, rows[0].updatedBy, rows[0].createdAt, rows[0].updatedAt);
+                let contrato = new ContratoModel(rows[0]['idContrato'], rows[0]['idCliente'], rows[0]['numeroContrato'], rows[0]['dataContrato'], rows[0]['statusContrato'], rows[0]['obsContrato'], rows[0]['createdBy'], rows[0]['updatedBy'], rows[0]['created_at'], rows[0]['updated_at']);
                 return contrato;
             } else {
                 return null;

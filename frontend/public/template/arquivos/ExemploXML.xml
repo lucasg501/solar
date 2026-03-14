@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListingDataFeed xmlns="http://www.vivareal.com/schemas/1.0/VRSync"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.vivareal.com/schemas/1.0/VRSync  http://xml.vivareal.com/vrsync.xsd">
+   <Header>
+       <Provider>Desenvolvedor do Feed</Provider>
+       <Email>desenvolvefeed@feed.com.br</Email>
+       <ContactName>Nome do Cliente</ContactName>
+       <PublishDate>2018-05-29T17:47:57</PublishDate>
+       <Telephone>11-3450 4646</Telephone>
+   </Header>
+   <Listings>
+     <Listing>
+           <ListingID>Imovel-02</ListingID>
+           <Title>Sala Comercial para aluguel possui 35 metros quadrados em Rio Pequeno - São Paulo - SP.</Title>
+           <TransactionType>For Rent</TransactionType>
+           <PublicationType>STANDARD</PublicationType>
+           <DetailViewUrl>http://www.grupozap.com.br/imoveis/Imovel-02</DetailViewUrl>
+           <Media>
+               <Item medium="video">https://www.youtube.com/watch?v=MukVADdjQD8</Item>
+               <Item medium="image" caption="img1" primary="true">http://grupozap.com.br/foto01_152900.jpg</Item>
+               <Item medium="image" caption="img02">http://grupozap.com.br/foto02_1529463900.jpg</Item>
+               <Item medium="image" caption="img03">http://grupozap.com.br/foto03_1529463900.jpg</Item>
+               <Item medium="image" caption="img04">http://grupozap.com.br/foto04_1529463900.jpg</Item>
+               <Item medium="image" caption="img05">http://grupozap.com.br/foto05_1529463900.jpg</Item>
+               <Item medium="image" caption="img06">http://grupozap.com.br/foto06_1529463900.jpg</Item>
+               <Item medium="image" caption="img07">http://grupozap.com.br/foto07_1529463900.jpg</Item>
+               <Item medium="image" caption="img08">http://grupozap.com.br/foto08_1529463900.jpg</Item>
+               <Item medium="image" caption="img09">http://grupozap.com.br/foto09_1529463900.jpg</Item>
+               <Item medium="image" caption="img10">http://grupozap.com.br/foto10_1529463900.jpg</Item>
+               <Item medium="image" caption="img11">http://grupozap.com.br/foto11_1529463900.jpg</Item>
+               <Item medium="image" caption="img12">http://grupozap.com.br/foto12_1529463900.jpg</Item>
+               <Item medium="image" caption="img13">http://grupozap.com.br/foto13_1529463900.jpg</Item>
+               <Item medium="image" caption="img14">http://grupozap.com.br/foto14_1529463900.jpg</Item>
+               <Item medium="image" caption="img15">http://grupozap.com.br/foto15_1529463900.jpg</Item>
+               <Item medium="image" caption="img16">http://grupozap.com.br/foto16_1529463900.jpg</Item>
+               <Item medium="image" caption="img17">http://grupozap.com.br/foto17_1529463900.jpg</Item>
+               <Item medium="image" caption="img18">http://grupozap.com.br/foto18_1529463900.jpg</Item>
+               <Item medium="image" caption="img19">http://grupozap.com.br/foto19_1529463900.jpg</Item>
+               <Item medium="image" caption="img20">http://grupozap.com.br/foto20_1529463900.jpg</Item>
+               <Item medium="image" caption="img21">http://grupozap.com.br/foto21_1529463900.jpg</Item>
+               <Item medium="image" caption="img22">http://grupozap.com.br/foto22_1529463900.jpg</Item>
+               <Item medium="image" caption="img23">http://grupozap.com.br/foto23_1529463900.jpg</Item>
+               <Item medium="image" caption="img24">http://grupozap.com.br/foto24_1529463900.jpg</Item>
+               <Item medium="image" caption="img25">http://grupozap.com.br/foto25_1529463900.jpg</Item>
+           </Media>
+           <Details>
+               <UsageType>Commercial</UsageType>
+               <PropertyType>Commercial / Office</PropertyType>
+               <Description><![CDATA[A sala comercial de 35 metros quadrados no bairro Rio Pequeno e 1 banheiro. A alguns minutos de universidades, estacionamentos, shoppings, transporte coletivo, restaurantes, padarias, farmácias, escolas, hospitais.
+     Além disso, segurança garantida 24 horas por dia e alarme de segurança para você e sua empresa.
+     Elevador para mais praticidade no dia-a-dia.
+     Está em um condomínio protegido por grades.]]></Description>
+               <RentalPrice currency="BRL" period="Monthly">2500</RentalPrice>
+               <LotArea unit="square metres">35</LotArea>
+               <LivingArea unit="square metres">35</LivingArea>
+               <PropertyAdministrationFee currency="BRL">680</PropertyAdministrationFee>
+               <YearlyTax currency="BRL">4500</YearlyTax>
+               <Bathrooms>1</Bathrooms>
+               <Floors>2</Floors>
+               <Buildings>3</Buildings>
+               <Garage type="Parking Space">2</Garage>
+               <Features>
+                  <Feature>Close to main roads/avenues</Feature>
+                  <Feature>Close to schools</Feature>
+                  <Feature>Close to hospitals</Feature>
+                  <Feature>Internet Connection</Feature>
+                  <Feature>Elevator</Feature>
+               </Features>
+               <Warranties>
+                  <Warranty>SECURITY_DEPOSIT</Warranty>
+                  <Warranty>GUARANTOR</Warranty>
+                  <Warranty>INSURANCE_GUARANTEE</Warranty>
+                  <Warranty>GUARANTEE_LETTER</Warranty>
+                  <Warranty>CAPITALIZATION_BONDS</Warranty>
+                </Warranties>
+           </Details>
+           <Location displayAddress="Street">
+               <Country abbreviation="BR">Brasil</Country>
+               <State abbreviation="SP">Sao Paulo</State>
+               <City>São Paulo</City>
+               <Neighborhood>Rio Pequeno</Neighborhood>
+               <Address>Rua João da Silva Sauro</Address>
+               <StreetNumber>98</StreetNumber>
+               <Complement>APT 9</Complement>
+               <PostalCode>05863-024</PostalCode>
+               <Latitude>-23.5531131</Latitude>
+               <Longitude>-46.659864</Longitude>
+           </Location>
+           <ContactInfo>
+               <Name>Imobiliaria Feliz</Name>
+               <Email>contato@imobiliariafeliz.com.br</Email>
+               <Website>http://www.imobiliariafeliz.com.br</Website>
+               <Telephone>(11) 3150-4646</Telephone>
+           </ContactInfo>
+     </Listing>
+  </Listings>
+</ListingDataFeed>

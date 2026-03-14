@@ -53,7 +53,7 @@ class ProjetoSolarModel {
         let rows = await banco.ExecutaComando(sql);
         let lista = [];
         for (let i = 0; i < rows.length; i++) {
-            let projeto = new ProjetoSolarModel(rpws[i]['idProjeto'], rows[i]['idContrato'], rows[i]['kwp'], rows[i]['idKit'], rows[i]['dataInstalacao'], rows[i]['createdAt'], rows[i]['updatedAt'], rows[i]['createdBy'], rows[i]['updatedBy']);
+            let projeto = new ProjetoSolarModel(rows[i]['idProjeto'], rows[i]['idContrato'], rows[i]['kwp'], rows[i]['idKit'], rows[i]['dataInstalacao'], rows[i]['created_at'], rows[i]['updated_at'], rows[i]['createdBy'], rows[i]['updatedBy']);
             lista.push(projeto);
         }
         return lista;
@@ -64,7 +64,7 @@ class ProjetoSolarModel {
         let valores = [idProjeto];
         let rows = await banco.ExecutaComando(sql, valores);
         if (rows.length > 0) {
-            let projeto = new ProjetoSolarModel(rows[0]['idProjeto'], rows[0]['idContrato'], rows[0]['kwp'], rows[0]['idKit'], rows[0]['dataInstalacao'], rows[0]['createdAt'], rows[0]['updatedAt'], rows[0]['createdBy'], rows[0]['updatedBy']);
+            let projeto = new ProjetoSolarModel(rows[0]['idProjeto'], rows[0]['idContrato'], rows[0]['kwp'], rows[0]['idKit'], rows[0]['dataInstalacao'], rows[0]['created_at'], rows[0]['updated_at'], rows[0]['createdBy'], rows[0]['updatedBy']);
             return projeto;
         } else {
             return false;
@@ -73,13 +73,13 @@ class ProjetoSolarModel {
 
     async gravar() {
         if (this.#idProjeto == 0) {
-            let sql = "INSERT INTO projetoSolar (idContrato, kwp, idKit, dataInstalacao, createdAt, updatedAt, createdBy, updatedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            let valores = [this.#idContrato, this.#kwp, this.#idKit, this.#dataInstalacao, this.#createdAt, this.#updatedAt, this.#createdBy, this.#updatedBy];
+            let sql = "INSERT INTO projetoSolar (idContrato, kwp, idKit, dataInstalacao, createdBy) VALUES (?, ?, ?, ?, ?)";
+            let valores = [this.#idContrato, this.#kwp, this.#idKit, this.#dataInstalacao, this.#createdBy];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
         } else {
-            let sql = "UPDATE projetoSolar SET idContrato = ?, kwp = ?, idKit = ?, dataInstalacao = ?, createdAt = ?, updatedAt = ?, createdBy = ?, updatedBy = ? WHERE idProjeto = ?";
-            let valores = [this.#idContrato, this.#kwp, this.#idKit, this.#dataInstalacao, this.#createdAt, this.#updatedAt, this.#createdBy, this.#updatedBy, this.#idProjeto];
+            let sql = "UPDATE projetoSolar SET idContrato = ?, kwp = ?, idKit = ?, dataInstalacao = ?, updatedBy = ? WHERE idProjeto = ?";
+            let valores = [this.#idContrato, this.#kwp, this.#idKit, this.#dataInstalacao, this.#updatedBy, this.#idProjeto];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
         }

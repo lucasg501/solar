@@ -99,7 +99,7 @@ class ClientesModel {
     async excluir(idCliente) {
         if (idCliente != 0) {
             let sql = 'delete from clientes where idCliente = ?';
-            let valores = [this.#idCliente];
+            let valores = [idCliente];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
         } else {
