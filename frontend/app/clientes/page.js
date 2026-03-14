@@ -69,6 +69,8 @@ export default function clientes() {
                             <th>Telefone</th>
                             <th>Aceita Ligação</th>
                             <th>Endereço</th>
+                            <th>Nº</th>
+                            <th>Bairro</th>
                             <th>Cidade</th>
                             <th>Estado</th>
                             <th>CEP</th>
@@ -86,13 +88,17 @@ export default function clientes() {
                                         <td>{value.telefoneCliente} <i style={{color: "green"}} className="fa-brands fa-whatsapp" onClick={() => { window.open(`http://wa.me/${value.telefoneCliente}`, '_blank')}}></i></td>
                                         <td>{value.pode_ligar == 1 ? 'Sim' : 'Não'}</td>
                                         <td>{value.enderecoCliente}</td>
+                                        <td>{value.numCasa}</td>
+                                        <td>{value.bairroCliente}</td>
                                         <td>{value.cidadeCliente}</td>
                                         <td>{value.estadoCliente}</td>
                                         <td>{value.cepCliente}</td>
                                         <td>
-                                            <button className="btn btn-primary">
-                                                <i className="fas fa-pen"></i>
-                                            </button>
+                                            <Link href={`/clientes/alterar/${value.idCliente}`}>
+                                                <button className="btn btn-primary">
+                                                    <i className="fas fa-pen"></i>
+                                                </button>
+                                            </Link>
                                             <button onClick={() => { excluirCliente(value.idCliente) }} style={{ marginLeft: 10 }} className="btn btn-danger">
                                                 <i className="fas fa-trash"></i>
                                             </button>

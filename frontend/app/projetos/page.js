@@ -134,7 +134,7 @@ export default function ProjetosPage() {
                                         <td>{buscarNomeKit(value.idKit)}</td>
                                         <td>{formatarData(value.dataInstalacao)}</td>
                                         <td>
-                                            <Link href={`/projetos/editar/${value.idProjeto}`}>
+                                            <Link href={`/projetos/alterar/${value.idProjeto}`}>
                                                 <button className="btn btn-primary">
                                                     <i className="fas fa-pen"></i>
                                                 </button>

@@ -843,13 +843,19 @@
             "type": "string",
             "example": "19064700"
           },
-          "createdBy": {
+          "bairroCliente": {
             "type": "string",
             "example": "1"
           },
-          "updatedBy": {
+          "numCasa": {
             "type": "string",
             "example": "1"
+          },
+          "createdBy": {
+            "type": "undefined"
+          },
+          "updatedBy": {
+            "type": "undefined"
           },
           "created_at": {
             "type": "undefined"

@@ -79,13 +79,13 @@ class ContratoModel {
 
     async gravar(){
         if(this.#idContrato == 0){
-            let sql = "insert into contratos (idCliente, numeroContrato, dataContrato, statusContrato, obsContrato, createdBy, updatedBy) values (?, ?, ?, ?, ?, ?, ?)";
-            let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#createdBy, this.#updatedBy];
+            let sql = "insert into contratos (idCliente, numeroContrato, dataContrato, statusContrato, obsContrato, createdBy) values (?, ?, ?, ?, ?, ?)";
+            let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#createdBy];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
         }else{
-            let sql = "update contratos set idCliente = ?, numeroContrato = ?, dataContrato = ?, statusContrato = ?, obsContrato = ?, createdBy = ?, updatedBy = ? where idContrato = ?";
-            let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#createdBy, this.#updatedBy, this.#idContrato];
+            let sql = "update contratos set idCliente = ?, numeroContrato = ?, dataContrato = ?, statusContrato = ?, obsContrato = ?, updatedBy = ? where idContrato = ?";
+            let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#updatedBy, this.#idContrato];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
         }

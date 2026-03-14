@@ -40,7 +40,7 @@ class ContaratosController {
             contratos.dataContrato = req.body.dataContrato;
             contratos.statusContrato = req.body.statusContrato;
             contratos.obsContrato = req.body.obsContrato;
-            contratos.createdBy = req.body.createdBy;
+            contratos.createdBy = 1;
 
             let ok = await contratos.gravar();
             if(ok){
@@ -61,7 +61,7 @@ class ContaratosController {
             contratos.dataContrato = req.body.dataContrato;
             contratos.statusContrato = req.body.statusContrato;
             contratos.obsContrato = req.body.obsContrato;
-            contratos.updatedBy = req.body.updatedBy;
+            contratos.updatedBy = 1;
             let ok = await contratos.gravar();
             if(ok){
                 res.status(200).json({message: 'Contrato alterado com sucesso'});

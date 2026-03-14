@@ -113,7 +113,9 @@ export default function Contratos(){
                                         <td>{value.statusContrato}</td>
                                         <td>{value.obsContrato}</td>
                                         <td>
-                                            <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
+                                            <Link href={`/contratos/alterar/${value.idContrato}`}>
+                                                <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
+                                            </Link>
                                             <button style={{marginLeft: 10}} className="btn btn-danger" onClick={() => excluirContrato(value.idContrato)}><i className="fas fa-trash"></i></button>
                                         </td>
                                     </tr>

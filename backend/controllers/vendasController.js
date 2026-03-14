@@ -41,7 +41,7 @@ class VendasController {
             vendasModel.valorVenda = req.body.valorVenda;
             vendasModel.dataVenda = req.body.dataVenda;
             vendasModel.statusVenda = req.body.statusVenda;
-            vendasModel.createdBy = req.body.createdBy;
+            vendasModel.createdBy = 1
 
             let ok = await vendasModel.gravar();
             if (ok) {

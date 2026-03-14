@@ -78,6 +78,17 @@ class KitsModel {
         }
     }
 
+
+    static async obterPorNome(nomeKit) {
+        let sql = "SELECT * FROM kits WHERE nomeKit = ? LIMIT 1";
+        let valores = [nomeKit];
+        let rows = await banco.ExecutaComando(sql, valores);
+        if (rows.length > 0) {
+            return new KitsModel(rows[0].idKit, rows[0].nomeKit, rows[0].descKit, rows[0].kitAtivo);
+        } else {
+            return null;
+        }
+    }
 }
 
 module.exports = KitsModel;

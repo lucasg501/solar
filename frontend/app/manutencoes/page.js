@@ -8,79 +8,79 @@ export default function ManutencoesPage() {
     const [listaManutencoes, setListaManutencoes] = useState([]);
     const [listaContratos, setListaContratos] = useState([]);
 
-    function listarManutencoes(){
+    function listarManutencoes() {
         let status = 0;
         httpClient.get('/manutencao/listar')
-        .then(r=>{
-            status = r.status;
-            return r.json();
-        })
-        .then(r=>{
-            if(status === 200){
-                setListaManutencoes(r);
-            }else{
-                alert('Erro ao listar manutenções');
-            }
-        })
-    }
-
-    function listarContratos(){
-        let status = 0;
-        httpClient.get('/contratos/listar')
-        .then(r=>{
-            status = r.status;
-            return r.json();
-        })
-        .then(r=>{
-            if(status === 200){
-                setListaContratos(r);
-            }else{
-                alert('Erro ao listar contratos');
-            }
-        })
-    }
-
-    function excluirManutencao(idManutencao){
-        let status = 0;
-        if(confirm('Deseja realmente excluir esta manutenção?')){
-            httpClient.delete(`/manutencao/excluir/${idManutencao}`)
-            .then(r=>{
+            .then(r => {
                 status = r.status;
                 return r.json();
             })
-            .then(r=>{
-                if(status === 200){
-                    alert('Manutenção excluida com sucesso');
-                    listarManutencoes();
-                }else{
-                    alert('Erro ao excluir manutenção');
+            .then(r => {
+                if (status === 200) {
+                    setListaManutencoes(r);
+                } else {
+                    alert('Erro ao listar manutenções');
                 }
             })
+    }
+
+    function listarContratos() {
+        let status = 0;
+        httpClient.get('/contratos/listar')
+            .then(r => {
+                status = r.status;
+                return r.json();
+            })
+            .then(r => {
+                if (status === 200) {
+                    setListaContratos(r);
+                } else {
+                    alert('Erro ao listar contratos');
+                }
+            })
+    }
+
+    function excluirManutencao(idManutencao) {
+        let status = 0;
+        if (confirm('Deseja realmente excluir esta manutenção?')) {
+            httpClient.delete(`/manutencao/excluir/${idManutencao}`)
+                .then(r => {
+                    status = r.status;
+                    return r.json();
+                })
+                .then(r => {
+                    if (status === 200) {
+                        alert('Manutenção excluida com sucesso');
+                        listarManutencoes();
+                    } else {
+                        alert('Erro ao excluir manutenção');
+                    }
+                })
         }
     }
 
-    function buscaContrato(idContrato){
+    function buscaContrato(idContrato) {
         const contrato = listaContratos.find(c => c.idContrato === idContrato);
         return contrato ? contrato.numeroContrato : '';
     }
 
-    function formatarData(dataServico){
+    function formatarData(dataServico) {
         const data = new Date(dataServico);
         return data.toLocaleDateString('pt-BR');
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         listarManutencoes();
         listarContratos();
-    },[]);
+    }, []);
 
-    return(
+    return (
         <div>
             <h1>Manutenções</h1>
 
             <div>
                 <Link href="/manutencoes/criar">
-                    <button style={{margin: 10}} className="btn btn-primary">Cadastrar</button>
+                    <button style={{ margin: 10 }} className="btn btn-primary">Cadastrar</button>
                 </Link>
             </div>
 
@@ -102,8 +102,8 @@ export default function ManutencoesPage() {
 
                     <tbody>
                         {
-                            listaManutencoes.map(function(value,index){
-                                return(
+                            listaManutencoes.map(function (value, index) {
+                                return (
                                     <tr key={index}>
                                         <td>{value.idManutencao}</td>
                                         <td>{buscaContrato(value.idContrato)}</td>
@@ -114,8 +114,9 @@ export default function ManutencoesPage() {
                                         <td>{value.finalizado ? 'Sim' : 'Não'}</td>
                                         <td>{formatarData(value.dataServico)}</td>
                                         <td>
-                                            <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
-                                            <button style={{marginLeft: 10}} className="btn btn-danger" onClick={() => excluirManutencao(value.idManutencao)}>
+                                            <Link href={`/manutencoes/alterar/${value.idManutencao}`}>
+                                                <button className="btn btn-primary"><i className="fas fa-pen"></i></button></Link>
+                                            <button style={{ marginLeft: 10 }} className="btn btn-danger" onClick={() => excluirManutencao(value.idManutencao)}>
                                                 <i className="fas fa-trash"></i>
                                             </button>
                                         </td>

@@ -50,10 +50,7 @@ class ProjetoSolarController {
             projetos.kwp = req.body.kwp;
             projetos.idKit = req.body.idKit;
             projetos.dataInstalacao = req.body.dataInstalacao;
-            projetos.createdAt = req.body.createdAt;
-            projetos.updatedAt = req.body.updatedAt;
-            projetos.createdBy = req.body.createdBy;
-            projetos.updatedBy = req.body.updatedBy;
+            projetos.createdBy = 1;
 
             let ok = await projetos.gravar();
 
@@ -78,10 +75,7 @@ class ProjetoSolarController {
             projetos.kwp = req.body.kwp;
             projetos.idKit = req.body.idKit;
             projetos.dataInstalacao = req.body.dataInstalacao;
-            projetos.createdAt = req.body.createdAt;
-            projetos.updatedAt = req.body.updatedAt;
-            projetos.createdBy = req.body.createdBy;
-            projetos.updatedBy = req.body.updatedBy;
+            projetos.updatedBy = 1;
 
             let ok = await projetos.gravar();
 

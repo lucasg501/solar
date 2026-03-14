@@ -80,7 +80,7 @@ export default function KitsPage() {
                                         <td>{value.descKit}</td>
                                         <td>{value.kitAtivo == "S" ? "Sim" : "Não"}</td>
                                         <td>
-                                            <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
+                                            <Link href={`/kits/alterar/${value.idKit}`}><button className="btn btn-primary"><i className="fas fa-pen"></i></button></Link>
                                             <button style={{ marginLeft: 10 }} className="btn btn-danger" onClick={() => { excluirKit(value.idKit) }}><i className="fas fa-trash"></i></button>
                                         </td>
                                     </tr>

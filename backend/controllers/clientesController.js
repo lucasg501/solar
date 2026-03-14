@@ -46,6 +46,8 @@ class ClientesController {
                 clientes.cidadeCliente = req.body.cidadeCliente;
                 clientes.estadoCliente = req.body.estadoCliente;
                 clientes.cepCliente = req.body.cepCliente;
+                clientes.bairroCliente = req.body.bairroCliente;
+                clientes.numCasa = req.body.numCasa;
                 clientes.createdBy = req.body.createdBy;
 
                 let ok = await clientes.gravar();
@@ -73,6 +75,8 @@ class ClientesController {
                 clientes.cidadeCliente = req.body.cidadeCliente;
                 clientes.estadoCliente = req.body.estadoCliente;
                 clientes.cepCliente = req.body.cepCliente;
+                clientes.bairroCliente = req.body.bairroCliente;
+                clientes.numCasa = req.body.numCasa;
                 clientes.updatedBy = req.body.updatedBy;
                 let ok = await clientes.gravar();
                 if (ok) {
