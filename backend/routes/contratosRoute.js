@@ -9,6 +9,12 @@ router.get('/listar', (req,res)=>{
     ctrl.listar(req,res);
 });
 
+router.get('/listarPag', (req,res) =>{
+    //#swagger.tags = ['Contratos']
+    //#swagger.summary = 'Endpoint para listar os contratos.'
+    ctrl.listaPag(req,res);
+});
+
 router.get('/obter/:idContrato', (req,res)=>{
     //#swagger.tags = ['Contratos']
     //#swagger.summary = 'Endpoint para obter um contrato específico.'

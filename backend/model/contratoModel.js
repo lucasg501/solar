@@ -62,6 +62,49 @@ class ContratoModel {
         }
         return lista;
     }
+    async listaPag(pagina, limite, nomeCliente) {
+
+        let offset = (pagina - 1) * limite;
+
+        let sql = `
+        SELECT c.*, cli.nomeCliente
+        FROM contratos c
+        INNER JOIN clientes cli ON cli.idCliente = c.idCliente
+        WHERE cli.nomeCliente LIKE ?
+        ORDER BY c.idContrato DESC
+        LIMIT ? OFFSET ?
+    `;
+
+        let valores = [
+            `%${nomeCliente}%`,
+            limite,
+            offset
+        ];
+
+        let rows = await banco.ExecutaComando(sql, valores);
+
+        let lista = [];
+
+        for (let i = 0; i < rows.length; i++) {
+
+            let contrato = new ContratoModel(
+                rows[i]['idContrato'],
+                rows[i]['idCliente'],
+                rows[i]['numeroContrato'],
+                rows[i]['dataContrato'],
+                rows[i]['statusContrato'],
+                rows[i]['obsContrato'],
+                rows[i]['createdBy'],
+                rows[i]['updatedBy'],
+                rows[i]['created_at'],
+                rows[i]['updated_at']
+            );
+
+            lista.push(contrato);
+        }
+
+        return lista;
+    }
 
     async obter(idContrato) {
         if (idContrato != 0) {
@@ -77,13 +120,13 @@ class ContratoModel {
         }
     }
 
-    async gravar(){
-        if(this.#idContrato == 0){
+    async gravar() {
+        if (this.#idContrato == 0) {
             let sql = "insert into contratos (idCliente, numeroContrato, dataContrato, statusContrato, obsContrato, createdBy) values (?, ?, ?, ?, ?, ?)";
             let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#createdBy];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
-        }else{
+        } else {
             let sql = "update contratos set idCliente = ?, numeroContrato = ?, dataContrato = ?, statusContrato = ?, obsContrato = ?, updatedBy = ? where idContrato = ?";
             let valores = [this.#idCliente, this.#numeroContrato, this.#dataContrato, this.#statusContrato, this.#obsContrato, this.#updatedBy, this.#idContrato];
             let ok = await banco.ExecutaComando(sql, valores);
@@ -91,13 +134,13 @@ class ContratoModel {
         }
     }
 
-    async excluir(idContrato){
-        if(idContrato != 0){
+    async excluir(idContrato) {
+        if (idContrato != 0) {
             let sql = "delete from contratos where idContrato = ?";
             let valores = [idContrato];
             let ok = await banco.ExecutaComando(sql, valores);
             return ok;
-        }else{
+        } else {
             return false;
         }
     }

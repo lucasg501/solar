@@ -18,6 +18,47 @@ class ManutencoesController {
         }
     }
 
+    async listarPag(req, res) {
+
+        try {
+
+            let pagina = parseInt(req.query.pagina) || 1;
+            let limite = parseInt(req.query.limite) || 10;
+
+            let ano = req.query.ano || '';
+            let ligacaoRealizada = req.query.ligacaoRealizada || '';
+            let servicoRealizado = req.query.servicoRealizado || '';
+            let finalizado = req.query.finalizado || '';
+
+            let model = new ManutencoesModel();
+
+            let lista = await model.listarPag(
+                pagina,
+                limite,
+                ano,
+                ligacaoRealizada,
+                servicoRealizado,
+                finalizado
+            );
+
+            let listaRetorno = [];
+
+            for (let i = 0; i < lista.length; i++) {
+                listaRetorno.push(lista[i].toJSON());
+            }
+
+            res.status(200).json(listaRetorno);
+
+        }
+        catch (e) {
+
+            console.log(e);
+            res.status(500).json({ erro: e });
+
+        }
+
+    }
+
     async obter(req, res) {
         if (req.params.idManutencao != 0) {
             try {

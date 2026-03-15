@@ -9,6 +9,12 @@ router.get('/listar', (req,res)=>{
     ctrl.listar(req,res);
 });
 
+router.get('/listarPag', (req,res) =>{
+    //#swagger.tags = ['Manutenções']
+    //#swagger.summary = 'Endpoint para listar as manutenções.'
+    ctrl.listarPag(req,res);
+});
+
 router.get('/obter/:idManutencao', (req,res)=>{
     //#swagger.tags = ['Manutenções']
     //#swagger.summary = 'Endpoint para obter uma manutenção específica.'

@@ -31,7 +31,7 @@ export default function VendaForm(props) {
     // Lista clientes
     function listarClientes() {
         setLoadingClientes(true);
-        httpClient.get('/clientes/listar')
+        httpClient.get('/clientes/listarTodos')
             .then(r => r.json())
             .then(r => {
                 setListaClientes(Array.isArray(r) ? r : []);

@@ -4,13 +4,30 @@ class ClientesController {
 
     async listar(req, res) {
         try {
+
+            let pagina = req.query.pagina || 1;
+            let limite = req.query.limite || 10;
+
+            let nome = req.query.nome || '';
+            let telefone = req.query.telefone || '';
+            let cidade = req.query.cidade || '';
+            let estado = req.query.estado || '';
+
             let clientes = new ClientesModel();
-            let lista = await clientes.listar();
+
+            let resultado = await clientes.listar(pagina, limite, nome, telefone, cidade, estado);
+
             let listaRetorno = [];
-            for (let i = 0; i < lista.length; i++) {
-                listaRetorno.push(lista[i].toJSON());
+
+            for (let i = 0; i < resultado.dados.length; i++) {
+                listaRetorno.push(resultado.dados[i].toJSON());
             }
-            res.status(200).json(listaRetorno);
+
+            res.status(200).json({
+                dados: listaRetorno,
+                total: resultado.total
+            });
+
         } catch (error) {
             res.status(500).json({ message: 'Erro interno do servidor' });
         }
@@ -29,6 +46,20 @@ class ClientesController {
             } catch (error) {
                 res.status(500).json({ message: 'Erro interno do servidor' });
             }
+        }
+    }
+
+    async listarTodos(req,res){
+        try{
+            let clientes = new ClientesModel();
+            let lista = await clientes.listarTodos();
+            let listaRetorno = [];
+            for(let i=0; i<lista.length; i++){
+                listaRetorno.push(lista[i].toJSON());
+            }
+            res.status(200).json(listaRetorno);
+        }catch(e){
+            res.status(500).json({message: 'Erro interno do servidor'});
         }
     }
 

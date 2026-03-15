@@ -25,6 +25,20 @@
         }
       }
     },
+    "/clientes/listarTodos": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Endpoint para listar os clientes.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/clientes/obter/{idCliente}": {
       "get": {
         "tags": [
@@ -122,6 +136,20 @@
       }
     },
     "/contratos/listar": {
+      "get": {
+        "tags": [
+          "Contratos"
+        ],
+        "summary": "Endpoint para listar os contratos.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contratos/listarPag": {
       "get": {
         "tags": [
           "Contratos"
@@ -342,6 +370,20 @@
       }
     },
     "/manutencao/listar": {
+      "get": {
+        "tags": [
+          "Manutenções"
+        ],
+        "summary": "Endpoint para listar as manutenções.",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/manutencao/listarPag": {
       "get": {
         "tags": [
           "Manutenções"

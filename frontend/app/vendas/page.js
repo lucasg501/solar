@@ -20,14 +20,14 @@ export default function VendasPage() {
                 if (status === 200) {
                     setListaVendas(r);
                 } else {
-                    alert('Erro ao listar vendas');
+                    console.log('Erro ao listar vendas');
                 }
             })
     }
 
     function listarClientes() {
         let status = 0;
-        httpClient.get('/clientes/listar')
+        httpClient.get('/clientes/listarTodos')
             .then(r => {
                 status = r.status;
                 return r.json();
@@ -51,7 +51,7 @@ export default function VendasPage() {
         return cliente ? cliente.nomeCliente : 'Cliente não encontrado';
     }
 
-    function formatarData(dataVenda){
+    function formatarData(dataVenda) {
         const data = new Date(dataVenda);
         return data.toLocaleDateString('pt-BR');
     }
@@ -83,7 +83,7 @@ export default function VendasPage() {
 
             <div>
                 <Link href="/vendas/criar">
-                    <button style={{margin: 10}} className="btn btn-primary">Cadastrar</button>
+                    <button style={{ margin: 10 }} className="btn btn-primary">Cadastrar</button>
                 </Link>
             </div>
 
@@ -104,8 +104,8 @@ export default function VendasPage() {
 
                     <tbody>
                         {
-                            listaVendas.map(function(value,index){
-                                return(
+                            listaVendas.map(function (value, index) {
+                                return (
                                     <tr key={index}>
                                         <td>{value.idVenda}</td>
                                         <td>{acharCliente(value.idCliente)}</td>
@@ -119,7 +119,7 @@ export default function VendasPage() {
                                                 <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
                                             </Link>
 
-                                            <button onClick={() =>{excluirVenda(value.idVenda)}} style={{marginLeft: 10}} className="btn btn-danger"><i className="fas fa-trash"></i></button>
+                                            <button onClick={() => { excluirVenda(value.idVenda) }} style={{ marginLeft: 10 }} className="btn btn-danger"><i className="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 )

@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const ClientesModel = require("./clientesModel");
 const ContratosModel = require("./contratoModel");
 const KitsModel = require("./kitsModel");
@@ -6,95 +9,132 @@ const ManutencoesModel = require("./manutencoesModel");
 
 class ImportacaoModel {
 
-    // Importa uma linha da tabela para todas as models
-    static async importarLinha(linha, userId = 1) {
-        // Converte data do serviço para objeto Date
-        const dataServico = linha['Data do serviço'] ? new Date(linha['Data do serviço']) : null;
-
-        // 1. Cliente
-        const cliente = new ClientesModel(
-            0,                              // idCliente = 0 para inserir
-            linha['Clientes'],              // nomeCliente
-            linha['TELEFONE'],              // telefoneCliente
-            1,                              // pode_ligar = sim
-            linha['ENDEREÇO'],              // enderecoCliente
-            linha['REGIÃO'],                // cidadeCliente
-            linha['ESTADO'] || '',          // estadoCliente
-            linha['CEP'] || '',             // cepCliente
-            linha['BAIRRO'] || ''           // bairroCliente
-        );
-
-        const resultadoCliente = await cliente.gravar();
-        const idCliente = resultadoCliente.insertId || cliente.idCliente;
-
-        // 2. Contrato
-        const contrato = new ContratosModel(
-            0,                              // idContrato
-            idCliente,                      // idCliente
-            linha['Clientes'] + ' ' + (linha['proj nova'] || ''), // numeroContrato
-            dataServico,                    // dataContrato
-            'Ativo',                        // statusContrato padrão
-            linha['Observações'] || '',     // obsContrato
-            userId                          // createdBy
-        );
-
-        const resultadoContrato = await contrato.gravar();
-        const idContrato = resultadoContrato.insertId || contrato.idContrato;
-
-        // 3. Kit (verifica duplicado pelo nome)
-        let kitExistente = await KitsModel.obterPorNome(linha['KIT']);
-        let idKit;
-        if (kitExistente) {
-            idKit = kitExistente.idKit;
-        } else {
-            const kit = new KitsModel(
-                0,                      // idKit
-                linha['KIT'],           // nomeKit
-                `Descrição do ${linha['KIT']}`, // descKit
-                'S'                     // kitAtivo
-            );
-            const resultadoKit = await kit.gravar();
-            idKit = resultadoKit.insertId || kit.idKit;
-        }
-
-        // 4. Manutenção
-        const manutencao = new ManutencoesModel(
-            0,                                      // idManutencao
-            idContrato,                             // idContrato
-            2025,                                   // anoManutencao fixo
-            linha['Ligação manutenção 2025'] === 'sim' ? 1 : 0, // ligacaoRealizada
-            linha['Realizado'] === 'Sim' ? 1 : 0,   // servicoRealizado
-            linha['Observações'] || '',             // observacoes
-            linha['Finalizado'] === 'sim' ? 1 : 0,  // finalizado
-            dataServico,                            // dataServico
-            userId                                  // createdBy
-        );
-
-        const resultadoManutencao = await manutencao.gravar();
-        const idManutencao = resultadoManutencao.insertId || manutencao.idManutencao;
-
-        // 5. Projeto Solar
-        const projeto = new ProjetoSolarModel(
-            0,              // idProjeto
-            idContrato,     // idContrato
-            linha['KWP'],   // kwp
-            idKit,          // idKit
-            dataServico,    // dataInstalacao
-            userId          // createdBy
-        );
-
-        const resultadoProjeto = await projeto.gravar();
-
-        return {
-            cliente: { idCliente },
-            contrato: { idContrato },
-            kit: { idKit },
-            manutencao: { idManutencao },
-            projeto: { idProjeto: resultadoProjeto.insertId || projeto.idProjeto }
-        };
+    // Normaliza datas no formato MM/YY
+    static normalizarDataServico(valor) {
+        if (!valor) return null;
+        const [mes, ano] = valor.split("/");
+        const anoCompleto = ano.length === 2 ? `20${ano}` : ano;
+        return new Date(`${anoCompleto}-${mes.padStart(2, "0")}-10`);
     }
 
-    // Importa várias linhas (array de objetos)
+    // Salva erros em arquivo
+    static salvarErro(linha, error) {
+        const logPath = path.join(__dirname, "../logs/importacao_erros.log");
+        const mensagem = `[${new Date().toISOString()}] Erro: ${error.message}\nLinha: ${JSON.stringify(linha)}\n\n`;
+        fs.appendFileSync(logPath, mensagem, "utf8");
+    }
+
+    // Limpa telefone (somente números, máximo 20 dígitos)
+    static limparTelefone(valor) {
+        if (!valor) return "";
+        return valor.toString().replace(/\D/g, "").substring(0, 20);
+    }
+
+    // Trunca texto para caber no banco
+    static limitarTexto(valor, limite) {
+        if (!valor) return "";
+        return valor.toString().substring(0, limite);
+    }
+
+    // Importa uma linha
+    static async importarLinha(linha, userId = 1) {
+        const dataServico = ImportacaoModel.normalizarDataServico(linha['Data do serviço']);
+
+        try {
+            // Tratamentos
+            const telefone = ImportacaoModel.limparTelefone(linha['TELEFONE']);
+            const kwp = linha['KWP'] ? parseFloat(linha['KWP']) : null;
+            const numeroContrato = ImportacaoModel.limitarTexto(
+                linha['Clientes'] + ' ' + (linha['proj nova'] || ''),
+                50
+            );
+            const observacoes = ImportacaoModel.limitarTexto(linha['Observações'] || '', 255);
+            const kitNome = ImportacaoModel.limitarTexto(linha['KIT'] || '', 100);
+
+            // 1. Cliente
+            const cliente = new ClientesModel(
+                0,
+                ImportacaoModel.limitarTexto(linha['Clientes'], 100),
+                telefone,
+                1,
+                ImportacaoModel.limitarTexto(linha['ENDEREÇO'], 255),
+                ImportacaoModel.limitarTexto(linha['REGIÃO'], 100),
+                ImportacaoModel.limitarTexto(linha['ESTADO'] || '', 50),
+                ImportacaoModel.limitarTexto(linha['CEP'] || '', 20),
+                ImportacaoModel.limitarTexto(linha['BAIRRO'] || '', 100)
+            );
+            const resultadoCliente = await cliente.gravar();
+            const idCliente = resultadoCliente.insertId || cliente.idCliente;
+
+            // 2. Contrato
+            const contrato = new ContratosModel(
+                0,
+                idCliente,
+                numeroContrato,
+                dataServico,
+                'Ativo',
+                observacoes,
+                userId
+            );
+            const resultadoContrato = await contrato.gravar();
+            const idContrato = resultadoContrato.insertId || contrato.idContrato;
+
+            // 3. Kit
+            let kitExistente = await KitsModel.obterPorNome(kitNome);
+            let idKit;
+            if (kitExistente) {
+                idKit = kitExistente.idKit;
+            } else {
+                const kit = new KitsModel(
+                    0,
+                    kitNome,
+                    `Descrição do ${kitNome}`,
+                    'S'
+                );
+                const resultadoKit = await kit.gravar();
+                idKit = resultadoKit.insertId || kit.idKit;
+            }
+
+            // 4. Manutenção
+            const manutencao = new ManutencoesModel(
+                0,
+                idContrato,
+                2025,
+                linha['Ligação manutenção 2025'] === 'sim' ? 1 : 0,
+                linha['Realizado'] === 'Sim' ? 1 : 0,
+                observacoes,
+                linha['Finalizado'] === 'sim' ? 1 : 0,
+                dataServico,
+                userId
+            );
+            const resultadoManutencao = await manutencao.gravar();
+            const idManutencao = resultadoManutencao.insertId || manutencao.idManutencao;
+
+            // 5. Projeto Solar
+            const projeto = new ProjetoSolarModel(
+                0,
+                idContrato,
+                kwp,
+                idKit,
+                dataServico,
+                userId
+            );
+            const resultadoProjeto = await projeto.gravar();
+
+            return {
+                cliente: { idCliente },
+                contrato: { idContrato },
+                kit: { idKit },
+                manutencao: { idManutencao },
+                projeto: { idProjeto: resultadoProjeto.insertId || projeto.idProjeto }
+            };
+
+        } catch (error) {
+            ImportacaoModel.salvarErro(linha, error);
+            throw error;
+        }
+    }
+
     static async importarTabela(tabela, userId = 1) {
         const resultados = [];
         for (const linha of tabela) {

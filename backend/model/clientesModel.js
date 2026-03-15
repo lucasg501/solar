@@ -68,14 +68,78 @@ class ClientesModel {
         }
     }
 
-    async listar() {
-        let sql = 'select * from clientes';
-        let rows = await banco.ExecutaComando(sql);
-        let lista = [];
-        for (let i = 0; i < rows.length; i++) {
-            lista.push(new ClientesModel(rows[i]['idCliente'], rows[i]['nomeCliente'], rows[i]['telefoneCliente'], rows[i]['pode_ligar'], rows[i]['enderecoCliente'], rows[i]['cidadeCliente'], rows[i]['estadoCliente'], rows[i]['cepCliente'], rows[i]['bairroCliente'], rows[i]['numCasa'], rows[i]['createdBy'], rows[i]['updatedBy'], rows[i]['created_at'], rows[i]['updated_at']));
+    async listar(pagina = 1, limite = 10, nome = '', telefone = '', cidade = '', estado = '') {
+
+        let offset = (pagina - 1) * limite;
+
+        let sql = 'select * from clientes where 1=1';
+        let sqlTotal = 'select count(*) as total from clientes where 1=1';
+
+        let valores = [];
+        let valoresTotal = [];
+
+        if (nome != '') {
+            sql += ' and nomeCliente like ?';
+            sqlTotal += ' and nomeCliente like ?';
+            valores.push('%' + nome + '%');
+            valoresTotal.push('%' + nome + '%');
         }
-        return lista;
+
+        if (telefone != '') {
+            sql += ' and telefoneCliente like ?';
+            sqlTotal += ' and telefoneCliente like ?';
+            valores.push('%' + telefone + '%');
+            valoresTotal.push('%' + telefone + '%');
+        }
+
+        if (cidade != '') {
+            sql += ' and cidadeCliente like ?';
+            sqlTotal += ' and cidadeCliente like ?';
+            valores.push('%' + cidade + '%');
+            valoresTotal.push('%' + cidade + '%');
+        }
+
+        if (estado != '') {
+            sql += ' and estadoCliente = ?';
+            sqlTotal += ' and estadoCliente = ?';
+            valores.push(estado);
+            valoresTotal.push(estado);
+        }
+
+        sql += ' order by idCliente desc limit ? offset ?';
+        valores.push(parseInt(limite));
+        valores.push(parseInt(offset));
+
+        let rows = await banco.ExecutaComando(sql, valores);
+        let totalRows = await banco.ExecutaComando(sqlTotal, valoresTotal);
+
+        let lista = [];
+
+        for (let i = 0; i < rows.length; i++) {
+
+            lista.push(new ClientesModel(
+                rows[i]['idCliente'],
+                rows[i]['nomeCliente'],
+                rows[i]['telefoneCliente'],
+                rows[i]['pode_ligar'],
+                rows[i]['enderecoCliente'],
+                rows[i]['cidadeCliente'],
+                rows[i]['estadoCliente'],
+                rows[i]['cepCliente'],
+                rows[i]['bairroCliente'],
+                rows[i]['numCasa'],
+                rows[i]['createdBy'],
+                rows[i]['updatedBy'],
+                rows[i]['created_at'],
+                rows[i]['updated_at']
+            ));
+
+        }
+
+        return {
+            dados: lista,
+            total: totalRows[0].total
+        };
     }
 
     async obter(idCliente) {
@@ -113,6 +177,16 @@ class ClientesModel {
         } else {
             return false;
         }
+    }
+
+    async listarTodos(){
+        let sql = 'select * from clientes order by nomeCliente asc';
+        let rows = await banco.ExecutaComando(sql);
+        let lista = [];
+        for(let i=0;i<rows.length; i++){
+            lista.push(new ClientesModel(rows[i]['idCliente'], rows[i]['nomeCliente'], rows[i]['telefoneCliente'], rows[i]['pode_ligar'], rows[i]['enderecoCliente'], rows[i]['cidadeCliente'], rows[i]['estadoCliente'], rows[i]['cepCliente'], rows[i]['bairroCliente'], rows[i]['numCasa'], rows[i]['createdBy'], rows[i]['updatedBy'], rows[i]['created_at'], rows[i]['updated_at']));
+        }
+        return lista;
     }
 
 }

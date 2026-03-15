@@ -54,7 +54,7 @@ export default function KitsPage() {
 
             <div>
                 <Link href="/kits/criar">
-                    <button className="btn btn-primary">Cadastrar</button>
+                    <button style={{margin: 10}} className="btn btn-primary">Cadastrar</button>
                 </Link>
             </div>
 
