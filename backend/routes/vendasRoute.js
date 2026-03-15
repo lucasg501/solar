@@ -15,6 +15,12 @@ router.get('/obter/:idVenda', (req,res) =>{
     ctrl.obter(req,res);
 });
 
+router.get('/obterPorIdCliente/:idCliente', (req,res)=>{
+    //#swagger.tags = ['Vendas']
+    //#swagger.summary = 'Endpoint para obter uma venda pelo id do cliente.'
+    ctrl.obterPorIdCliente(req,res);
+});
+
 router.post('/criar', (req,res) =>{
     // #swagger.tags = ['Vendas']
     // #swagger.summary = 'Adiciona uma venda'

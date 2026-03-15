@@ -106,7 +106,7 @@ class ClientesModel {
             valoresTotal.push(estado);
         }
 
-        sql += ' order by idCliente desc limit ? offset ?';
+        sql += ' order by nomeCliente asc limit ? offset ?';
         valores.push(parseInt(limite));
         valores.push(parseInt(offset));
 

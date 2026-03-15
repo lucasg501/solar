@@ -8,6 +8,7 @@ export default function VendasPage() {
 
     const [listaVendas, setListaVendas] = useState([]);
     const [listaClientes, setListaClientes] = useState([]);
+    const [statusFiltro, setStatusFiltro] = useState(''); // novo estado para filtro
 
     function listarVendas() {
         let status = 0;
@@ -66,8 +67,8 @@ export default function VendasPage() {
                 })
                 .then(r => {
                     if (status === 200) {
-                        alert('Venda excluida com sucesso');
-                        listarVendas();
+                        alert('Venda excluída com sucesso');
+                        listarVendas(r);
                     } else {
                         alert('Erro ao excluir venda');
                     }
@@ -87,6 +88,24 @@ export default function VendasPage() {
                 </Link>
             </div>
 
+            {/* Filtro de Status */}
+            <div style={{ marginBottom: 20 }}>
+                <label style={{ marginRight: 10 }}>Filtrar por Status:</label>
+                <select
+                    className="form-control"
+                    style={{ width: 200, display: 'inline-block' }}
+                    value={statusFiltro}
+                    onChange={e => setStatusFiltro(e.target.value)}
+                >
+                    <option value="">Todos</option>
+                    <option value="orcamento">Orçamento</option>
+                    <option value="aprovado">Aprovado</option>
+                    <option value="executando">Executando</option>
+                    <option value="finalizado">Finalizado</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+            </div>
+
             <div>
                 <table className="table table-striped">
                     <thead>
@@ -104,8 +123,9 @@ export default function VendasPage() {
 
                     <tbody>
                         {
-                            listaVendas.map(function (value, index) {
-                                return (
+                            listaVendas
+                                .filter(v => statusFiltro === '' || v.statusVenda === statusFiltro)
+                                .map((value, index) => (
                                     <tr key={index}>
                                         <td>{value.idVenda}</td>
                                         <td>{acharCliente(value.idCliente)}</td>
@@ -119,16 +139,20 @@ export default function VendasPage() {
                                                 <button className="btn btn-primary"><i className="fas fa-pen"></i></button>
                                             </Link>
 
-                                            <button onClick={() => { excluirVenda(value.idVenda) }} style={{ marginLeft: 10 }} className="btn btn-danger"><i className="fas fa-trash"></i></button>
+                                            <button
+                                                onClick={() => excluirVenda(value.idVenda)}
+                                                style={{ marginLeft: 10 }}
+                                                className="btn btn-danger"
+                                            >
+                                                <i className="fas fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
-                                )
-                            })
+                                ))
                         }
                     </tbody>
                 </table>
             </div>
-
         </div>
     );
 }

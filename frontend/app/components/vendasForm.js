@@ -22,8 +22,9 @@ export default function VendaForm(props) {
 
     const tipoVenda = useRef();
     const descricaoVenda = useRef();
-    const valorVenda = useRef();
     const statusVenda = useRef();
+
+    const [valorFormatado, setValorFormatado] = useState(venda.valorVenda || '');
 
     const [loadingClientes, setLoadingClientes] = useState(false);
     const [listaClientes, setListaClientes] = useState([]);
@@ -51,8 +52,22 @@ export default function VendaForm(props) {
                 ...props.venda,
                 dataVenda: props.venda.dataVenda ? props.venda.dataVenda.split('T')[0] : ''
             });
+            setValorFormatado(props.venda.valorVenda || '');
         }
     }, [props.venda]);
+
+    // Funções de máscara
+    function formatarMoeda(valor) {
+        if (!valor) return '';
+        const numero = valor.replace(/\D/g, '');
+        const centavos = (parseInt(numero, 10) / 100).toFixed(2);
+        return centavos.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    function limparMoeda(valor) {
+        if (!valor) return 0;
+        return parseFloat(valor.replace(/\./g, '').replace(',', '.'));
+    }
 
     // Função salvar
     function salvarVenda() {
@@ -60,7 +75,7 @@ export default function VendaForm(props) {
             idCliente: venda.idCliente,
             tipoVenda: tipoVenda.current.value,
             descricaoVenda: descricaoVenda.current.value,
-            valorVenda: valorVenda.current.value,
+            valorVenda: limparMoeda(valorFormatado), // valor sem máscara
             dataVenda: venda.dataVenda,
             statusVenda: statusVenda.current.value
         }).then(r => {
@@ -80,7 +95,7 @@ export default function VendaForm(props) {
             idCliente: venda.idCliente,
             tipoVenda: tipoVenda.current.value,
             descricaoVenda: descricaoVenda.current.value,
-            valorVenda: valorVenda.current.value,
+            valorVenda: limparMoeda(valorFormatado), // valor sem máscara
             dataVenda: venda.dataVenda,
             statusVenda: statusVenda.current.value
         }).then(r => {
@@ -153,14 +168,17 @@ export default function VendaForm(props) {
                     {/* Valor */}
                     <div className="col-md-3 mb-3">
                         <label className="form-label">Valor:</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            ref={valorVenda}
-                            defaultValue={venda.valorVenda}
-                            step="0.01"
-                        />
+                        <div className="input-group">
+                            <span className="input-group-text">R$</span>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={valorFormatado}
+                                onChange={e => setValorFormatado(formatarMoeda(e.target.value))}
+                            />
+                        </div>
                     </div>
+
 
                     {/* Data da Venda */}
                     <div className="col-md-3 mb-3">

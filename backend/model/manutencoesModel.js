@@ -72,18 +72,18 @@ class ManutencoesModel {
     }
 
     async listarPag(pagina, limite, ano, ligacaoRealizada, servicoRealizado, finalizado) {
-
         let offset = (pagina - 1) * limite;
 
         let sql = `
-        SELECT *
-        FROM manutencoes
+        SELECT m.*, c.numeroContrato
+        FROM manutencoes m
+        JOIN contratos c ON m.idContrato = c.idContrato
         WHERE 
-            (? = '' OR YEAR(dataServico) = ?)
-        AND (? = '' OR ligacaoRealizada = ?)
-        AND (? = '' OR servicoRealizado = ?)
-        AND (? = '' OR finalizado = ?)
-        ORDER BY idManutencao DESC
+            (? = '' OR YEAR(m.dataServico) = ?)
+        AND (? = '' OR m.ligacaoRealizada = ?)
+        AND (? = '' OR m.servicoRealizado = ?)
+        AND (? = '' OR m.finalizado = ?)
+        ORDER BY c.numeroContrato ASC
         LIMIT ? OFFSET ?
     `;
 
@@ -101,7 +101,6 @@ class ManutencoesModel {
         let lista = [];
 
         for (let i = 0; i < rows.length; i++) {
-
             let manutencao = new ManutencoesModel(
                 rows[i]['idManutencao'],
                 rows[i]['idContrato'],
@@ -116,6 +115,9 @@ class ManutencoesModel {
                 rows[i]['created_at'],
                 rows[i]['updated_at']
             );
+
+            // você pode anexar o número do contrato se quiser usar no front
+            manutencao.numeroContrato = rows[i]['numeroContrato'];
 
             lista.push(manutencao);
         }

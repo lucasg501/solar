@@ -751,6 +751,30 @@
         }
       }
     },
+    "/vendas/obterPorIdCliente/{idCliente}": {
+      "get": {
+        "tags": [
+          "Vendas"
+        ],
+        "summary": "Endpoint para obter uma venda pelo id do cliente.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idCliente",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/vendas/criar": {
       "post": {
         "tags": [

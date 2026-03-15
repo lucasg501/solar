@@ -110,8 +110,7 @@ export default function ManutencaoForm(props) {
 
 
     function salvarManutencao() {
-
-        let status = 0
+        let status = 0;
 
         httpClient.post('/manutencao/criar', {
             idContrato: idContrato.current.value,
@@ -123,23 +122,72 @@ export default function ManutencaoForm(props) {
             dataServico: dataServico.current.value
         })
             .then(r => {
-                status = r.status
-
+                status = r.status;
+                return r.json();
+            })
+            .then(() => {
                 if (status === 200) {
-                    alert("Manutenção cadastrada com sucesso")
-                    window.location.href = "/manutencoes"
+                    alert("Manutenção cadastrada com sucesso");
+
+                    if (confirm("Gostaria de marcar uma venda para esse cliente?")) {
+                        let statusContrato = 0;
+
+                        httpClient.get(`/contratos/obter/${idContrato.current.value}`)
+                            .then(r => {
+                                statusContrato = r.status;
+                                return r.json();
+                            })
+                            .then(contrato => {
+                                if (statusContrato === 200) {
+                                    // contrato é o objeto JSON retornado
+                                    const idCliente = contrato.idCliente;
+                                    const tipoVenda = "orcamento";
+                                    const valorVenda = 0;
+
+                                    httpClient.post('/vendas/criar', {
+                                        idCliente,
+                                        tipoVenda,
+                                        valorVenda
+                                    })
+                                        .then(r => {
+                                            if (r.status === 200) {
+                                                // depois de criar a venda, você pode redirecionar
+                                                window.location.href = `/vendas/alterarPorCli/${idCliente}`;
+                                            } else {
+                                                alert("Erro ao cadastrar venda");
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.error("Erro ao cadastrar venda:", err);
+                                            alert("Erro ao cadastrar venda");
+                                        });
+
+                                } else {
+                                    alert("Erro ao obter contrato");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Erro ao obter contrato:", err);
+                                alert("Erro ao obter contrato");
+                            });
+
+                    } else {
+                        window.location.href = "/manutencoes";
+                    }
                 } else {
-                    alert("Erro ao cadastrar manutenção")
+                    alert("Erro ao cadastrar manutenção");
                 }
             })
-
+            .catch(err => {
+                console.error("Erro ao cadastrar manutenção:", err);
+                alert("Erro ao cadastrar manutenção");
+            });
     }
 
 
 
     function alterarManutencao() {
-
-        let status = 0
+        let status = 0;
 
         httpClient.put('/manutencao/alterar', {
             idManutencao: manutencao.idManutencao,
@@ -152,19 +200,67 @@ export default function ManutencaoForm(props) {
             dataServico: dataServico.current.value
         })
             .then(r => {
-                status = r.status
-
+                status = r.status;
+                return r.json();
+            })
+            .then(() => {
                 if (status === 200) {
-                    alert("Manutenção alterada com sucesso")
-                    window.location.href = "/manutencoes"
+                    alert("Manutenção alterada com sucesso");
+
+                    if (confirm("Gostaria de marcar uma venda para esse cliente?")) {
+                        let statusContrato = 0;
+
+                        httpClient.get(`/contratos/obter/${idContrato.current.value}`)
+                            .then(r => {
+                                statusContrato = r.status;
+                                return r.json();
+                            })
+                            .then(contrato => {
+                                if (statusContrato === 200) {
+                                    // contrato é o objeto JSON retornado
+                                    const idCliente = contrato.idCliente;
+                                    const tipoVenda = "limpeza";
+                                    const valorVenda = 0;
+
+                                    httpClient.post('/vendas/criar', {
+                                        idCliente,
+                                        tipoVenda,
+                                        valorVenda
+                                    })
+                                        .then(r => {
+                                            if (r.status === 200) {
+                                                // depois de criar a venda, você pode redirecionar
+                                                window.location.href = `/vendas/alterarPorCli/${idCliente}`;
+                                            } else {
+                                                alert("Erro ao cadastrar venda");
+                                            }
+                                        })
+                                        .catch(err => {
+                                            console.error("Erro ao cadastrar venda:", err);
+                                            alert("Erro ao cadastrar venda");
+                                        });
+
+                                } else {
+                                    alert("Erro ao obter contrato");
+                                }
+                            })
+                            .catch(err => {
+                                console.error("Erro ao obter contrato:", err);
+                                alert("Erro ao obter contrato");
+                            });
+
+                    } else {
+                        window.location.href = "/manutencoes";
+                    }
                 } else {
-                    alert("Erro ao alterar manutenção")
+                    alert("Erro ao cadastrar manutenção");
                 }
             })
-
+            .catch(err => {
+                console.error("Erro ao cadastrar manutenção:", err);
+                alert("Erro ao cadastrar manutenção");
+            });
     }
-
-
 
     return (
 

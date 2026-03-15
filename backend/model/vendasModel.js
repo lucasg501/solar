@@ -115,6 +115,36 @@ class VendasModel {
         }
     }
 
+    async obterPorIdCliente(idCliente) {
+
+        let sql = 'select * from vendas where idCliente = ?';
+        let valores = [idCliente];
+
+        let rows = await banco.ExecutaComando(sql, valores);
+
+        if (rows.length > 0) {
+
+            let venda = new VendasModel(
+                rows[0]['idVenda'],
+                rows[0]['idCliente'],
+                rows[0]['tipoVenda'],
+                rows[0]['descricaoVenda'],
+                rows[0]['valorVenda'],
+                rows[0]['dataVenda'],
+                rows[0]['statusVenda'],
+                rows[0]['createdBy'],
+                rows[0]['updatedBy'],
+                rows[0]['created_at'],
+                rows[0]['updated_at']
+            );
+
+            return venda;
+
+        } else {
+            return null;
+        }
+    }
+
     async gravar() {
 
         if (this.#idVenda == 0) {

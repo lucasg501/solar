@@ -30,6 +30,20 @@ class VendasController {
         }
     }
 
+    async obterPorIdCliente(req, res) {
+        if (req.params.idCliente != 0) {
+            let vendasModel = new VendasModel();
+            vendasModel = await vendasModel.obterPorIdCliente(req.params.idCliente);
+            if (vendasModel != null) {
+                res.status(200).json(vendasModel);
+            } else {
+                res.status(404).json({ message: 'Venda não encontrada' });
+            }
+        } else {
+            res.status(400).json({ message: 'ID da venda inválido' });
+        }
+    }
+
     async gravar(req, res) {
         if (Object.keys(req.body).length > 0) {
             let vendasModel = new VendasModel();
@@ -37,10 +51,10 @@ class VendasController {
             vendasModel.idVenda = 0;
             vendasModel.idCliente = req.body.idCliente;
             vendasModel.tipoVenda = req.body.tipoVenda;
-            vendasModel.descricaoVenda = req.body.descricaoVenda;
+            vendasModel.descricaoVenda = req.body.descricaoVenda != undefined ? req.body.descricaoVenda : '';
             vendasModel.valorVenda = req.body.valorVenda;
-            vendasModel.dataVenda = req.body.dataVenda;
-            vendasModel.statusVenda = req.body.statusVenda;
+            vendasModel.dataVenda = req.body.dataVenda !== undefined ? req.body.dataVenda : null;
+            vendasModel.statusVenda = req.body.statusVenda != undefined ? req.body.statusVenda : 1;
             vendasModel.createdBy = 1
 
             let ok = await vendasModel.gravar();
